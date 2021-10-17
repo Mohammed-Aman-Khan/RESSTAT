@@ -4,11 +4,14 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import theme from './util/theme'
 import { Provider } from 'react-redux'
 import Store from './store'
+import { SnackbarProvider } from 'notistack'
 
 ReactDOM.render(
     <Provider store={ Store }>
         <ThemeProvider theme={ theme }>
-            <App />
+            <SnackbarProvider maxSnack={ 3 }>
+                <App />
+            </SnackbarProvider>
         </ThemeProvider>
     </Provider>,
     document.getElementById('resstat')

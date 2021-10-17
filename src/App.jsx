@@ -4,8 +4,10 @@ import withStyles from '@mui/styles/withStyles'
 import { vh, vw } from './util/responsive'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
-import Configuration from './pages/Configuration'
+import MyData from './pages/MyData'
+import Report from './pages/Report'
 import { useSelector } from 'react-redux'
+import Nav from './components/Nav'
 
 const Background = withStyles({
     root: {
@@ -13,6 +15,22 @@ const Background = withStyles({
         width: vw(100),
     },
 }, { name: 'Background' })(Paper)
+
+const AppWithNav = () => {
+    return <>
+        <Nav />
+        <Route
+            exact
+            path="/myData"
+            render={ () => <MyData /> }
+        />
+        <Route
+            exact
+            path="/report"
+            render={ () => <Report /> }
+        />
+    </>
+}
 
 const App = () => {
     const isLoggedIn = useSelector(store => store.user.loggedIn)
@@ -30,12 +48,16 @@ const App = () => {
                     <Route
                         exact
                         path="/"
-                        render={ () => isLoggedIn ? <Redirect to="/configuration" /> : <LandingPage /> }
+                        render={ () => isLoggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                     />
                     <Route
                         exact
-                        path="/configuration"
-                        render={ () => isLoggedIn ? <Configuration /> : <Redirect to="/" /> }
+                        path="/:page"
+                        render={ () => isLoggedIn ? <AppWithNav /> : <Redirect to="/" /> }
+                    />
+                    <Route
+                        path="*"
+                        render={ () => isLoggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                     />
                 </Switch>
             </Background>
