@@ -1,8 +1,16 @@
 import ReactDOM from 'react-dom'
 import App from './App'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
+import theme from './util/theme'
+import { Provider } from 'react-redux'
+import Store from './store'
 
 ReactDOM.render(
-    <App />,
+    <Provider store={ Store }>
+        <ThemeProvider theme={ theme }>
+            <App />
+        </ThemeProvider>
+    </Provider>,
     document.getElementById('resstat')
 )
 
