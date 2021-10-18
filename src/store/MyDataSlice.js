@@ -1,32 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit'
+import filter from 'lodash/filter'
 import isEqual from 'lodash/isEqual'
 import findIndex from 'lodash/findIndex'
 
 const MyDataSlice = createSlice({
-    name: 'myData',
+    name: 'me',
     initialState: {
         loggedIn: false,
-        semResults: [],
+        results: [],
     },
     reducers: {
-        INIT_MY_DATA: (state, action) => action.payload,
+        INIT_ME: (state, action) => ({
+            loggedIn: true,
+            results: action.payload,
+        }),
         ADD_SEM_RESULT: (state, action) => {
-            state.semResults.push(action.payload)
+            state.results.push(action.payload)
             return state
         },
         DELETE_SEM_RESULT: (state, action) => {
-            state.semResults = state.semResults.filter(i => !isEqual(i.sem, action.payload.sem))
+            state.results = filter(state.results, i => !isEqual(i.semester, action.payload.semester))
             return state
         },
         EDIT_SEM_RESULT: (state, action) => {
-            let index = findIndex(state.semResults, { sem: action.payload.sem })
-            state.semResults[ index ] = action.payload.newResult
+            let index = findIndex(state.results, { sem: action.payload.semester })
+            state.results[ index ] = {
+                semester: action.payload.semester,
+                semResult: action.payload.newResult,
+            }
             return state
         },
     },
 })
 
 export const {
+    INIT_ME,
     ADD_SEM_RESULT,
     DELETE_SEM_RESULT,
     EDIT_SEM_RESULT,
