@@ -7,10 +7,7 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useLogout } from '../../util/googleAuth'
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { LOGOUT } from '../../store/UserSlice'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -95,16 +92,7 @@ const NavBar = ({ small = false }) => {
 }
 
 const Nav = () => {
-    const dispatch = useDispatch()
     const small = !useMediaQuery(theme => theme.breakpoints.up('sm'))
-    const signOut = useLogout(
-        res => {
-            dispatch(LOGOUT())
-        },
-        res => {
-            console.log(res)
-        }
-    )
 
     return <>
         <Box sx={ { flexGrow: 1 } }>
@@ -120,7 +108,7 @@ const Nav = () => {
                     <Button
                         size={ small ? 'small' : 'medium' }
                         variant="outlined"
-                        onClick={ signOut }
+                        onClick={ () => { } }
                     >
                         Logout
                     </Button>

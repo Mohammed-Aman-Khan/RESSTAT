@@ -33,12 +33,12 @@ const AppWithNav = () => {
 }
 
 const App = () => {
-    const isLoggedIn = useSelector(store => store.user.loggedIn)
+    const isLoggedIn = useSelector(store => store.myData.loggedIn)
 
     return <Router>
         <Fade
             in
-            timeout={ 500 }
+            timeout={ 1000 }
         >
             <Background
                 square

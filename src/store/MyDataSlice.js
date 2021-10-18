@@ -5,6 +5,7 @@ import findIndex from 'lodash/findIndex'
 const MyDataSlice = createSlice({
     name: 'myData',
     initialState: {
+        loggedIn: false,
         semResults: [],
     },
     reducers: {
