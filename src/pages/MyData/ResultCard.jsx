@@ -113,6 +113,7 @@ const ResultCard = ({ semester, semResult }) => {
                                                     <TableCell
                                                         key={ idx }
                                                         align="center"
+                                                        sx={ { minWidth: 100 } }
                                                     >
                                                         <Typography variant="caption">
                                                             { item }

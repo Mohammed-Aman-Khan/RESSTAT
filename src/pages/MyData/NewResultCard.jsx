@@ -20,7 +20,7 @@ import TableRow from '@mui/material/TableRow'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
-import { formatString, Semesters, withOrdSuffix } from '../../util/helper'
+import { formatStringCapital, Semesters, withOrdSuffix } from '../../util/helper'
 import { Typography } from '@mui/material'
 import isEqual from 'lodash/isEqual'
 import { useDispatch } from 'react-redux'
@@ -70,8 +70,8 @@ const NewResultCard = () => {
     }, [ setOpenMainDialog, setOpenNewDialog ])
     const addSubject = useCallback(() => {
         let newSub = { ...newSubject }
-        newSub.subjectCode = formatString(newSub.subjectCode)
-        newSub.subjectName = formatString(newSub.subjectName)
+        newSub.subjectCode = formatStringCapital(newSub.subjectCode)
+        newSub.subjectName = formatStringCapital(newSub.subjectName)
 
         if (!newSub.subjectCode) {
             enqueueSnackbar('Subject Code Required', { variant: 'error', preventDuplicate: true })
@@ -172,32 +172,27 @@ const NewResultCard = () => {
                         </caption>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Subject Code</TableCell>
-                                <TableCell
-                                    align="center"
-                                >
-                                    Subject Name
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                >
-                                    Credits
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                >
-                                    Scored Marks
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                >
-                                    Max Marks
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                >
-                                    &nbsp;
-                                </TableCell>
+                                {
+                                    [
+                                        <>Subject Code</>,
+                                        <>Subject Name</>,
+                                        <>Credits</>,
+                                        <>Scored Marks</>,
+                                        <>Max Marks</>,
+                                        <>&nbsp;</>
+                                    ]
+                                        .map((item, idx) =>
+                                            <TableCell
+                                                key={ idx }
+                                                align="center"
+                                                sx={ { minWidth: 100 } }
+                                            >
+                                                <Typography variant="caption">
+                                                    { item }
+                                                </Typography>
+                                            </TableCell>
+                                        )
+                                }
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -208,31 +203,20 @@ const NewResultCard = () => {
                                             key={ subjectCode }
                                             sx={ { '&:last-child td, &:last-child th': { border: 0 } } }
                                         >
-                                            <TableCell
-                                                align="center"
-                                            >
-                                                { subjectCode }
-                                            </TableCell>
-                                            <TableCell
-                                                align="center"
-                                            >
-                                                { subjectName }
-                                            </TableCell>
-                                            <TableCell
-                                                align="center"
-                                            >
-                                                { credits }
-                                            </TableCell>
-                                            <TableCell
-                                                align="center"
-                                            >
-                                                { scoredMarks }
-                                            </TableCell>
-                                            <TableCell
-                                                align="center"
-                                            >
-                                                { maxMarks }
-                                            </TableCell>
+                                            {
+                                                [ subjectCode, subjectName, credits, scoredMarks, maxMarks ]
+                                                    .map((item, idx) =>
+                                                        <TableCell
+                                                            key={ idx }
+                                                            align="center"
+                                                            sx={ { minWidth: 100 } }
+                                                        >
+                                                            <Typography variant="caption">
+                                                                { item }
+                                                            </Typography>
+                                                        </TableCell>
+                                                    )
+                                            }
                                             <TableCell
                                                 align="center"
                                                 onClick={ () => removeSubject(index) }
@@ -293,7 +277,7 @@ const NewResultCard = () => {
                     name="credits"
                     label="Credits"
                     value={ newSubject.credits }
-                    onChange={ e => setNewSubject(prev => ({ ...prev, [ e.target.name ]: e.target.value })) }
+                    onChange={ e => setNewSubject(prev => ({ ...prev, [ e.target.name ]: Number(e.target.value) })) }
                 />
                 <br /><br />
                 <TextField

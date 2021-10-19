@@ -17,14 +17,12 @@ import CloseIcon from '@mui/icons-material/Close'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import DownloadIcon from '@mui/icons-material/Download'
 import ReplayIcon from '@mui/icons-material/Replay'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import { downloadConfigurationAsJSON } from '../../util/download'
 import { useDispatch } from 'react-redux'
 import { CLEAR_MY_MODEL } from '../../store/MyModelSlice'
 import { CLEAR_ME } from '../../store/MyDataSlice'
-import Store from '../../store'
 
 const NavBar = ({ small = false }) => {
     const history = useHistory()

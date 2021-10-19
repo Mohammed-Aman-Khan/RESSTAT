@@ -1,4 +1,4 @@
-import capitalize from 'lodash/capitalize'
+import upperCase from 'lodash/upperCase'
 
 export const withOrdSuffix = (number = 0) => {
     const ordinalRules = new Intl.PluralRules("en", { type: "ordinal" })
@@ -15,7 +15,7 @@ export const Semesters = Array.from({ length: 8 }, (_, i) => i + 1)
 
 export const roundToTwo = (number = 0) => +(Math.round(number + "e+2") + "e-2")
 
-export const formatString = string => String(string).replace(/\s+/g, " ").trim().split(' ').map(capitalize).join(' ')
+export const formatStringCapital = string => String(string).replace(/\s+/g, " ").trim().split(' ').map(upperCase).join(' ')
 
 export const calculateSGPA = subjectsData => {
     let totalCredits = 0
