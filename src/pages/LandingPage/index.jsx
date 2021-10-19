@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import InfoIcon from '@mui/icons-material/Info'
 import { useFilePicker } from 'use-file-picker'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
@@ -15,8 +16,8 @@ import { INIT_MY_MODEL } from '../../store/MyModelSlice'
 
 const MyGrid = withStyles({
     root: {
-        height: '100vh',
-        width: '100vw',
+        height: '100%',
+        width: '100%',
     }
 }, { name: 'MyGrid' })(Grid)
 const MyInnerGrid = withStyles({

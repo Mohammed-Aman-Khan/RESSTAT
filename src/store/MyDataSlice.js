@@ -6,7 +6,7 @@ import results from '../schemas/results'
 
 const MyDataSlice = createSlice({
     name: 'me',
-    initialState: {
+    initialState: localStorage.me ? JSON.parse(localStorage.me) : {
         loggedIn: false,
         results: results.getDefault(),
     },
@@ -31,6 +31,10 @@ const MyDataSlice = createSlice({
             }
             return state
         },
+        CLEAR_ME: (state, action) => ({
+            loggedIn: false,
+            results: results.getDefault(),
+        })
     },
 })
 
@@ -39,6 +43,7 @@ export const {
     ADD_SEM_RESULT,
     DELETE_SEM_RESULT,
     EDIT_SEM_RESULT,
+    CLEAR_ME,
 } = MyDataSlice.actions
 
 export default MyDataSlice

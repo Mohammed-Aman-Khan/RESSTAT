@@ -9,4 +9,10 @@ const Store = configureStore({
     },
 })
 
+Store.subscribe(() => {
+    const { lrModel, me } = Store.getState()
+    localStorage.lrModel = JSON.stringify(lrModel)
+    localStorage.me = JSON.stringify(me)
+})
+
 export default Store

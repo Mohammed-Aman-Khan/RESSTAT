@@ -4,7 +4,7 @@ import myModel from '../schemas/myModel'
 
 const MyModelSlice = createSlice({
     name: 'lrModel',
-    initialState: myModel.getDefault(),
+    initialState: localStorage.lrModel ? JSON.parse(localStorage.lrModel) : myModel.getDefault(),
     reducers: {
         INIT_MY_MODEL: (state, action) => action.payload,
         SET_INTERCEPT: (state, action) => {
@@ -17,6 +17,7 @@ const MyModelSlice = createSlice({
             state[ index ].coEfficient = action.payload.value
             return state
         },
+        CLEAR_MY_MODEL: (state, action) => myModel.getDefault()
     },
 })
 
@@ -24,6 +25,7 @@ export const {
     INIT_MY_MODEL,
     SET_INTERCEPT,
     SET_COEFFICIENT,
+    CLEAR_MY_MODEL,
 } = MyModelSlice.actions
 
 export default MyModelSlice

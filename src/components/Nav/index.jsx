@@ -1,9 +1,8 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -16,17 +15,26 @@ import ListItemText from '@mui/material/ListItemText'
 import PersonIcon from '@mui/icons-material/Person'
 import CloseIcon from '@mui/icons-material/Close'
 import BarChartIcon from '@mui/icons-material/BarChart'
+import DownloadIcon from '@mui/icons-material/Download'
+import ReplayIcon from '@mui/icons-material/Replay'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import Divider from '@mui/material/Divider'
+import Tooltip from '@mui/material/Tooltip'
+import { downloadConfigurationAsJSON } from '../../util/download'
+import { useDispatch } from 'react-redux'
+import { CLEAR_MY_MODEL } from '../../store/MyModelSlice'
+import { CLEAR_ME } from '../../store/MyDataSlice'
+import Store from '../../store'
 
 const NavBar = ({ small = false }) => {
-    const [ state, setState ] = useState(false)
     const history = useHistory()
+    const [ state, setState ] = useState(false)
 
-    const toggleDrawer = open => event => {
+    const toggleDrawer = useCallback(open => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift'))
             return
         setState(open)
-    }
+    }, [ setState ])
 
     return <>
         <IconButton
@@ -93,10 +101,16 @@ const NavBar = ({ small = false }) => {
 
 const Nav = () => {
     const small = !useMediaQuery(theme => theme.breakpoints.up('sm'))
+    const dispatch = useDispatch()
+
+    const reset = useCallback(() => {
+        dispatch(CLEAR_MY_MODEL())
+        dispatch(CLEAR_ME())
+    }, [ dispatch ])
 
     return <>
         <Box sx={ { flexGrow: 1 } }>
-            <AppBar position="static" variant="outlined">
+            <AppBar position="static">
                 <Toolbar>
                     <NavBar { ...{ small } } />
                     <Typography
@@ -105,13 +119,26 @@ const Nav = () => {
                     >
                         RESSTAT
                     </Typography>
-                    <Button
-                        size={ small ? 'small' : 'medium' }
-                        variant="outlined"
-                        onClick={ () => { } }
+                    <Tooltip
+                        title={ <Typography>Download Data</Typography> }
                     >
-                        Logout
-                    </Button>
+                        <IconButton
+                            size={ small ? 'small' : 'large' }
+                            onClick={ downloadConfigurationAsJSON }
+                        >
+                            <DownloadIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip
+                        title={ <Typography>Clear Data</Typography> }
+                    >
+                        <IconButton
+                            size={ small ? 'small' : 'large' }
+                            onClick={ reset }
+                        >
+                            <ReplayIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Toolbar>
             </AppBar>
         </Box>
