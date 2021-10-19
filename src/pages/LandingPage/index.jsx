@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import withStyles from '@mui/styles/withStyles'
@@ -7,8 +7,11 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { useFilePicker } from 'use-file-picker'
-import * as yup from 'yup'
 import { useSnackbar } from 'notistack'
+import { useDispatch } from 'react-redux'
+import dataFile from '../../schemas/dataFile'
+import { INIT_ME } from '../../store/MyDataSlice'
+import { INIT_MY_MODEL } from '../../store/MyModelSlice'
 
 const MyGrid = withStyles({
     root: {
@@ -25,40 +28,24 @@ const MyInnerGrid = withStyles({
     }
 }, { name: 'MyInnerGrid' })(Grid)
 
-const myDataSchema = yup.object().shape({
-    lrModel: yup.object().shape({
-        intercept: yup.number().nullable().default(null),
-        coEfficient: yup.number().nullable().default(null),
-    }).required(),
-    results: yup.array().of(yup.object().shape({
-        semester: yup.number().required(),
-        semResult: yup.array().of(yup.object().shape({
-            subjectCode: yup.string(),
-            credits: yup.number(),
-            subjectName: yup.string(),
-            scoredMarks: yup.number().min(0),
-            maxMarks: yup.number().default(100),
-        })).required().default([]),
-    })).required().default([]),
-}).strict(true)
-
 const LandingPage = () => {
+    const dispatch = useDispatch()
     const small = !useMediaQuery(theme => theme.breakpoints.up('sm'))
-    const [ openFilePicker, { filesContent, loading } ] = useFilePicker({
-        accept: '.json',
-    })
+    const [ openFilePicker, { filesContent, loading } ] = useFilePicker({ accept: '.json', })
     const { enqueueSnackbar } = useSnackbar()
+    const uploadDataFile = useCallback(jsonfileContent => {
+        dataFile
+            .validate(JSON.parse(jsonfileContent))
+            .then(value => {
+                dispatch(INIT_MY_MODEL(value.lrModel))
+                dispatch(INIT_ME(value.results))
+            })
+            .catch(err => enqueueSnackbar('Invalid Data File', { variant: 'error', preventDuplicate: true, }))
+    }, [ dispatch, enqueueSnackbar ])
 
     useEffect(() => {
-        if (!loading && filesContent.length) {
-            myDataSchema
-                .validate(JSON.parse(filesContent[ 0 ].content))
-                .then(value => {
-
-                })
-                .catch(err => enqueueSnackbar('Invalid Data File', { variant: 'error', preventDuplicate: true, }))
-        }
-    }, [ loading, filesContent, enqueueSnackbar ])
+        !loading && filesContent.length && uploadDataFile(filesContent[ 0 ].content)
+    }, [ loading, filesContent, uploadDataFile ])
 
     return <MyGrid
         item container

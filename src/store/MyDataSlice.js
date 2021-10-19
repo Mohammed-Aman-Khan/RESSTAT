@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import filter from 'lodash/filter'
 import isEqual from 'lodash/isEqual'
 import findIndex from 'lodash/findIndex'
+import results from '../schemas/results'
 
 const MyDataSlice = createSlice({
     name: 'me',
     initialState: {
         loggedIn: false,
-        results: [],
+        results: results.getDefault(),
     },
     reducers: {
         INIT_ME: (state, action) => ({
