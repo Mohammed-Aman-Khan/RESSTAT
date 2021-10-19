@@ -42,6 +42,9 @@ const LandingPage = () => {
             })
             .catch(err => enqueueSnackbar('Invalid Data File', { variant: 'error', preventDuplicate: true, }))
     }, [ dispatch, enqueueSnackbar ])
+    const startNew = useCallback(() => {
+        dispatch(INIT_ME(dataFile.getDefaultFromShape().results))
+    }, [ dispatch ])
 
     useEffect(() => {
         !loading && filesContent.length && uploadDataFile(filesContent[ 0 ].content)
@@ -59,7 +62,9 @@ const LandingPage = () => {
             alignItems="center"
             direction="column"
         >
-            <Grid item>
+            <Grid
+                item
+            >
                 <Typography
                     variant={ small ? 'h2' : 'h1' }
                     sx={ { fontFamily: 'Monoton' } }
@@ -67,7 +72,9 @@ const LandingPage = () => {
                     RESSTAT
                 </Typography>
             </Grid>
-            <Grid item>
+            <Grid
+                item
+            >
                 <Typography
                     variant={ small ? 'h6' : 'h5' }
                     sx={ { textAlign: 'center' } }
@@ -99,10 +106,11 @@ const LandingPage = () => {
                 >
                     <Button
                         fullWidth
-                        size={ small ? "medium" : "large" }
-                        variant="contained"
-                        endIcon={ <KeyboardArrowRightIcon /> }
                         disableElevation
+                        variant="contained"
+                        size={ small ? "medium" : "large" }
+                        endIcon={ <KeyboardArrowRightIcon /> }
+                        onClick={ startNew }
                     >
                         Start New
                     </Button>
