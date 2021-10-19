@@ -6,9 +6,12 @@ import { useSelector } from 'react-redux'
 import ResultCard from './ResultCard'
 import NewResultCard from './NewResultCard'
 import Alert from '@mui/material/Alert'
+import { vh,vw } from '../../util/responsive'
 
 const MyPaper = withStyles(theme => ({
     root: {
+        height: vh(100),
+        width: vw(100),
         padding: 20,
         [ theme.breakpoints.down('md') ]: {
             padding: 10,
