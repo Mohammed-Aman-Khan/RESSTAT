@@ -15,7 +15,6 @@ import { DataGrid } from '@mui/x-data-grid'
 import makeStyles from '@mui/styles/makeStyles'
 import CustomToolbar from '../../components/DataGrid/CustomToolbar'
 import CustomNoRowsOverlay from '../../components/DataGrid/CustomNoRowsOverlay'
-import ThemeProvider from '@mui/material/styles/ThemeProvider'
 
 const ResultPaper = styled('div')({
     maxHeight: '100%',
@@ -136,7 +135,6 @@ const ResultCard = ({ semester, semResult }) => {
                 SGPA : <strong>{ calculateSGPA(semResult) } / 10</strong>
             </Typography>
             <br /><br />
-            <ThemeProvider>
                 <DataGrid
                     className={ clsx.datagrid }
                     autoPageSize
@@ -157,7 +155,6 @@ const ResultCard = ({ semester, semResult }) => {
                     density="comfortable"
                     scrollbarSize={ 10 }
                 />
-            </ThemeProvider>
         </ResultPaper>
         <Dialog
             fullWidth
