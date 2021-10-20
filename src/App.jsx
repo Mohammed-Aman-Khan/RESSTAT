@@ -3,30 +3,44 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import LandingPage from './pages/LandingPage'
 import MyData from './pages/MyData'
 import Report from './pages/Report'
+import Calculation from './pages/Calculation'
 import { useSelector } from 'react-redux'
 import Nav from './components/Nav'
+import withStyles from '@mui/styles/withStyles'
+import { vh } from './util/responsive'
 
-const AppWithNav = () => {
-    return <>
-        <Nav />
-        <Route
-            exact
-            path="/myData"
-            render={ () => <MyData /> }
-        />
-        <Route
-            exact
-            path="/report"
-            render={ () => <Report /> }
-        />
-    </>
-}
+const MyPaper = withStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: vh(100),
+    },
+})(Paper)
+
+const AppWithNav = () => <>
+    <Nav />
+    <Route
+        exact
+        path="/myData"
+        render={ () => <MyData /> }
+    />
+    <Route
+        exact
+        path="/report"
+        render={ () => <Report /> }
+    />
+    <Route
+        exact
+        path="/calculation"
+        render={ () => <Calculation /> }
+    />
+</>
 
 const App = () => {
     const isLoggedIn = useSelector(store => store.me.loggedIn)
 
     return <Router>
-        <Paper
+        <MyPaper
             square
             elevation={ 0 }
         >
@@ -46,7 +60,8 @@ const App = () => {
                     render={ () => isLoggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                 />
             </Switch>
-        </Paper>
+
+        </MyPaper>
     </Router>
 }
 

@@ -17,6 +17,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import DownloadIcon from '@mui/icons-material/Download'
 import ReplayIcon from '@mui/icons-material/Replay'
+import CalculateIcon from '@mui/icons-material/Calculate'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import { downloadConfigurationAsJSON } from '../../util/download'
@@ -74,7 +75,12 @@ const NavBar = ({ small = false }) => {
                                 text: 'Report',
                                 path: '/report',
                                 icon: <BarChartIcon />,
-                            }
+                            },
+                            {
+                                text: 'Calculation',
+                                path: '/calculation',
+                                icon: <CalculateIcon />,
+                            },
                         ]
                             .map(({ text, path, icon }) =>
                                 <ListItem
@@ -106,41 +112,37 @@ const Nav = () => {
         dispatch(CLEAR_ME())
     }, [ dispatch ])
 
-    return <>
-        <Box sx={ { flexGrow: 1 } }>
-            <AppBar position="static">
-                <Toolbar>
-                    <NavBar { ...{ small } } />
-                    <Typography
-                        variant={ small ? 'h4' : 'h3' }
-                        sx={ { flexGrow: 1, fontFamily: 'Monoton', margin: small ? '10px' : '20px' } }
-                    >
-                        RESSTAT
-                    </Typography>
-                    <Tooltip
-                        title={ <Typography>Download Data</Typography> }
-                    >
-                        <IconButton
-                            size={ small ? 'small' : 'large' }
-                            onClick={ downloadConfigurationAsJSON }
-                        >
-                            <DownloadIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip
-                        title={ <Typography>Clear Data</Typography> }
-                    >
-                        <IconButton
-                            size={ small ? 'small' : 'large' }
-                            onClick={ reset }
-                        >
-                            <ReplayIcon />
-                        </IconButton>
-                    </Tooltip>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    </>
+    return <AppBar position="static">
+        <Toolbar>
+            <NavBar { ...{ small } } />
+            <Typography
+                variant={ small ? 'h4' : 'h3' }
+                sx={ { flexGrow: 1, fontFamily: 'Monoton', margin: small ? '10px' : '20px' } }
+            >
+                RESSTAT
+            </Typography>
+            <Tooltip
+                title={ <Typography>Download Data</Typography> }
+            >
+                <IconButton
+                    size={ small ? 'small' : 'large' }
+                    onClick={ downloadConfigurationAsJSON }
+                >
+                    <DownloadIcon />
+                </IconButton>
+            </Tooltip>
+            <Tooltip
+                title={ <Typography>Clear Data</Typography> }
+            >
+                <IconButton
+                    size={ small ? 'small' : 'large' }
+                    onClick={ reset }
+                >
+                    <ReplayIcon />
+                </IconButton>
+            </Tooltip>
+        </Toolbar>
+    </AppBar>
 }
 
 export default Nav

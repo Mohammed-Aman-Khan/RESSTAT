@@ -1,7 +1,8 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import IconButton from '@mui/material/IconButton'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import Popover from '@mui/material/Popover'
 import withStyles from '@mui/styles/withStyles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -15,6 +16,8 @@ import dataFile from '../../schemas/dataFile'
 import { INIT_ME } from '../../store/MyDataSlice'
 import { INIT_MY_MODEL } from '../../store/MyModelSlice'
 import { vh, vw } from '../../util/responsive'
+import styled from '@mui/material/styles/styled'
+import Alert from '@mui/material/Alert'
 
 const MyGrid = withStyles({
     root: {
@@ -30,19 +33,19 @@ const MyInnerGrid = withStyles({
         maxWidth: 600,
     }
 }, { name: 'MyInnerGrid' })(Grid)
-const MyInfoButton = withStyles({
-    root: {
-        position: 'fixed',
-        bottom: 10,
-        right: 10,
-    },
-})(IconButton)
+const InfoDiv = styled('div')({
+    position: 'fixed',
+    bottom: 10,
+    right: 10,
+})
 
 const LandingPage = () => {
     const dispatch = useDispatch()
     const small = !useMediaQuery(theme => theme.breakpoints.up('sm'))
     const [ openFilePicker, { filesContent, loading } ] = useFilePicker({ accept: '.json', })
     const { enqueueSnackbar } = useSnackbar()
+    const [ anchorEl, setAnchorEl ] = useState(null)
+
     const uploadDataFile = useCallback(jsonfileContent => {
         dataFile
             .validate(JSON.parse(jsonfileContent))
@@ -130,11 +133,34 @@ const LandingPage = () => {
                 </Grid>
             </MyInnerGrid>
         </MyGrid>
-        <MyInfoButton
-            size={ small ? 'small' : 'large' }
-        >
-            <InfoIcon fontSize={ small ? 'medium' : 'large' } />
-        </MyInfoButton>
+        <InfoDiv>
+            <IconButton
+                size={ small ? 'small' : 'large' }
+                onClick={ e => setAnchorEl(e.currentTarget) }
+            >
+                <InfoIcon fontSize={ small ? 'medium' : 'large' } />
+            </IconButton>
+            <Popover
+                open={ Boolean(anchorEl) }
+                anchorEl={ anchorEl }
+                onClose={ () => setAnchorEl(null) }
+                anchorOrigin={ {
+                    vertical: 'top',
+                    horizontal: 'center',
+                } }
+                transformOrigin={ {
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                } }
+            >
+                <Alert
+                    variant="outlined"
+                    severity="info"
+                >
+                    This website does not store its Users' Data.
+                </Alert>
+            </Popover>
+        </InfoDiv>
     </>
 }
 

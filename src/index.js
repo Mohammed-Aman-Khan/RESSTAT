@@ -7,9 +7,20 @@ import Store from './store'
 import { SnackbarProvider } from 'notistack'
 
 ReactDOM.render(
-    <Provider store={ Store }>
-        <ThemeProvider theme={ theme }>
-            <SnackbarProvider maxSnack={ 3 }>
+    <Provider
+        store={ Store }
+    >
+        <ThemeProvider
+            theme={ theme }
+        >
+            <SnackbarProvider
+                maxSnack={ 3 }
+                autoHideDuration={ 3000 }
+                anchorOrigin={ {
+                    horizontal: 'center',
+                    vertical: 'bottom',
+                } }
+            >
                 <App />
             </SnackbarProvider>
         </ThemeProvider>
