@@ -8,18 +8,17 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import IconButton from '@mui/material/IconButton'
-import { calculateSGPA, withOrdSuffix } from '../../util/helper'
+import { calculateSGPA, percentage, totalMarksScored, withOrdSuffix } from '../../util/helper'
 import EditIcon from '@mui/icons-material/Edit'
+import { DataGrid } from '@mui/x-data-grid'
+import makeStyles from '@mui/styles/makeStyles'
+import CustomToolbar from '../../components/DataGrid/CustomToolbar'
+import CustomNoRowsOverlay from '../../components/DataGrid/CustomNoRowsOverlay'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
 
 const ResultPaper = styled('div')({
+    maxHeight: '100%',
     minHeight: 200,
     minWidth: 200,
     borderRadius: 20,
@@ -27,9 +26,69 @@ const ResultPaper = styled('div')({
     width: '100%',
     aspectRatio: '1/1',
     border: '1px solid rgba(255, 255, 255, 0.2)',
+    display: 'flex',
+    flexDirection: 'column',
 })
 
+const useStyles = makeStyles({
+    datagrid: {
+        flexGrow: 1,
+        '&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus, &.MuiDataGrid-root .MuiDataGrid-cell:focus': {
+            outline: 'none',
+        },
+    },
+})
+
+const columns = [
+    {
+        minWidth: 100,
+        headerAlign: 'center',
+        align: 'center',
+        field: 'subjectCode',
+        headerName: 'Subject Code',
+        flex: 0.5,
+        cellClassName: 'whiteText',
+        headerClassName: 'whiteText',
+    },
+    {
+        minWidth: 200,
+        headerAlign: 'center',
+        align: 'center',
+        field: 'subjectName',
+        headerName: 'Subject Name',
+        sortable: false,
+        filterable: false,
+        flex: 1,
+        cellClassName: 'whiteText',
+        headerClassName: 'whiteText',
+    },
+    {
+        minWidth: 100,
+        headerAlign: 'center',
+        align: 'center',
+        field: 'credits',
+        headerName: 'Credits',
+        type: 'number',
+        flex: 0.5,
+        cellClassName: 'whiteText',
+        headerClassName: 'whiteText',
+    },
+    {
+        minWidth: 200,
+        headerAlign: 'center',
+        align: 'center',
+        field: 'scoredMarks',
+        headerName: 'Marks',
+        sortable: false,
+        flex: 0.5,
+        cellClassName: 'whiteText',
+        headerClassName: 'whiteText',
+        valueGetter: params => `${ params.row.scoredMarks }/${ params.row.maxMarks }`
+    },
+]
+
 const ResultCard = ({ semester, semResult }) => {
+    const clsx = useStyles()
     const [ openEditDialog, setOpenEditDialog ] = useState(false)
     const [ currentSubject, setCurrentSubject ] = useState(null)
 
@@ -52,7 +111,7 @@ const ResultCard = ({ semester, semResult }) => {
                     container item
                     xs={ 12 } sm={ 6 } md={ 6 } lg={ 6 } xl={ 4 }
                 >
-                    <Typography variant="button">
+                    <Typography variant="h6">
                         { withOrdSuffix(semester) } Semester
                     </Typography>
                 </Grid>
@@ -67,78 +126,38 @@ const ResultCard = ({ semester, semResult }) => {
                 </Grid>
             </Grid>
             <br />
-            <TableContainer component={ Paper }>
-                <Table sx={ { width: '100%' } }>
-                    <caption>
-                        <Typography variant="caption">
-                            SGPA : { calculateSGPA(semResult) } / 10
-                        </Typography>
-                    </caption>
-                    <TableHead>
-                        <TableRow>
-                            {
-                                [
-                                    <>Subject Code</>,
-                                    <>Subject Name</>,
-                                    <>Credits</>,
-                                    <>Scored Marks</>,
-                                    <>Max Marks</>,
-                                    <>&nbsp;</>
-                                ]
-                                    .map((item, idx) =>
-                                        <TableCell
-                                            key={ idx }
-                                            align="center"
-                                            sx={ { minWidth: 100 } }
-                                        >
-                                            <Typography variant="caption">
-                                                { item }
-                                            </Typography>
-                                        </TableCell>
-                                    )
-                            }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            semResult
-                                .map(({ subjectCode, subjectName, credits, scoredMarks, maxMarks }, index) =>
-                                    <TableRow
-                                        key={ subjectCode }
-                                        sx={ { '&:last-child td, &:last-child th': { border: 0 } } }
-                                    >
-                                        {
-                                            [ subjectCode, subjectName, credits, scoredMarks, maxMarks ]
-                                                .map((item, idx) =>
-                                                    <TableCell
-                                                        key={ idx }
-                                                        align="center"
-                                                        sx={ { minWidth: 100 } }
-                                                    >
-                                                        <Typography variant="caption">
-                                                            { item }
-                                                        </Typography>
-                                                    </TableCell>
-                                                )
-                                        }
-                                        <TableCell
-                                            align="center"
-                                            onClick={ () => { } }
-                                        >
-                                            <IconButton
-                                                size="small"
-                                            >
-                                                <EditIcon
-                                                    fontSize="small"
-                                                />
-                                            </IconButton>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Typography variant="overline">
+                Total Marks Scored : <strong>{ totalMarksScored(semResult) }</strong>
+            </Typography>
+            <Typography variant="overline">
+                Percentage : <strong>{ percentage(semResult) } %</strong>
+            </Typography>
+            <Typography variant="overline">
+                SGPA : <strong>{ calculateSGPA(semResult) } / 10</strong>
+            </Typography>
+            <br /><br />
+            <ThemeProvider>
+                <DataGrid
+                    className={ clsx.datagrid }
+                    autoPageSize
+                    pagination
+                    rows={ semResult }
+                    columns={ columns }
+                    disableSelectionOnClick
+                    disableColumnMenu
+                    isCellEditable={ params => false }
+                    isRowEditable={ params => false }
+                    components={ {
+                        Toolbar: CustomToolbar,
+                        NoRowsOverlay: CustomNoRowsOverlay,
+                    } }
+                    // onPageChange={ val => page.set(val) }
+                    // onPageSizeChange={ val => pageSize.set(val) }
+                    getRowId={ row => row.subjectCode }
+                    density="comfortable"
+                    scrollbarSize={ 10 }
+                />
+            </ThemeProvider>
         </ResultPaper>
         <Dialog
             fullWidth

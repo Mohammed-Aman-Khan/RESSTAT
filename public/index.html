@@ -21,10 +21,36 @@
                 margin: 0;
             }
 
+            /* width */
+            ::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: #424242;
+                border-radius: 10px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #424242;
+            }
+
+            @media screen and (min-width: 960px) {
+                ::-webkit-scrollbar {
+                    width: 5px;
+                }
+            }
+
             input[type=number]::-webkit-inner-spin-button,
             input[type=number]::-webkit-outer-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
+            }
+
+            .whiteText {
+                color: white;
             }
 
         </style>

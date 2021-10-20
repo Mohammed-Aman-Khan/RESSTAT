@@ -119,6 +119,8 @@ const NewResultCard = () => {
 
         dispatch(ADD_SEM_RESULT({ semester, semResult: subjects, }))
         setOpenMainDialog(false)
+        setSemester(null)
+        setSubjects([])
     }, [ enqueueSnackbar, dispatch, semester, subjects, setOpenMainDialog ])
 
     return <>
