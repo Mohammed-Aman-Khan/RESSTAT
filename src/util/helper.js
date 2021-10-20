@@ -15,7 +15,8 @@ export const Semesters = Array.from({ length: 8 }, (_, i) => i + 1)
 
 export const roundToTwo = (number = 0) => +(Math.round(number + "e+2") + "e-2")
 
-export const formatStringCapital = string => String(string).replace(/\s+/g, " ").trim().split(' ').map(upperCase).join(' ')
+export const toCapital = string => String(string).split('').map(upperCase).join('')
+export const formatString = string => String(string).replace(/\s+/g, " ").trim()
 
 export const calculateSGPA = subjectsData => {
     let totalCredits = 0
@@ -23,7 +24,7 @@ export const calculateSGPA = subjectsData => {
 
     for (let i = 0; i < subjectsData.length; i++) {
         totalCredits += subjectsData[ i ].credits
-        totalCreditPoints += (subjectsData[ i ].credits * Math.round(((subjectsData[ i ].scoredMarks / subjectsData[ i ].maxMarks) * 100) / 10))
+        totalCreditPoints += (subjectsData[ i ].credits * (((subjectsData[ i ].scoredMarks / subjectsData[ i ].maxMarks) * 100) / 10))
     }
 
     return roundToTwo(totalCreditPoints / totalCredits)

@@ -6,7 +6,9 @@ const MyModelSlice = createSlice({
     name: 'lrModel',
     initialState: localStorage.lrModel ? JSON.parse(localStorage.lrModel) : myModel.getDefault(),
     reducers: {
-        INIT_MY_MODEL: (state, action) => action.payload,
+        INIT_MY_MODEL: (state, action) => {
+            return action.payload ?? myModel.getDefault()
+        },
         SET_INTERCEPT: (state, action) => {
             let index = findIndex(state, { credits: action.payload.credits })
             state[ index ].intercept = action.payload.value

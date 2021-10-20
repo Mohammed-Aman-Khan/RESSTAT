@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 import ResultCard from './ResultCard'
 import NewResultCard from './NewResultCard'
 import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import TimelineIcon from '@mui/icons-material/Timeline'
+import useMyModel from '../../hooks/useMyModel'
 
 const Card = withStyles(theme => ({
     root: {
@@ -18,19 +21,47 @@ const Card = withStyles(theme => ({
 }), { name: 'MyDataCard' })(Paper)
 
 const MyData = () => {
+    const hasChanges = useSelector(state => state.appData.hasChanges)
     const results = useSelector(state => state.me.results) ?? []
+    const { trainAndBuild } = useMyModel()
 
     return <Paper
         elevation={ 0 }
     >
         <Card elevation={ 0 }>
-            <Typography variant="h5">Semester Results</Typography>
+            <Grid
+                container
+                spacing={ 3 }
+            >
+                <Grid
+                    container item
+                    xs={ 12 } sm={ 6 } md={ 9 } lg={ 9 } xl={ 9 }
+                >
+                    <Typography variant="h5">Semester Results</Typography>
+                </Grid>
+                <Grid
+                    container item
+                    xs={ 12 } sm={ 6 } md={ 3 } lg={ 3 } xl={ 3 }
+                >
+                    <Button
+                        fullWidth
+                        size="large"
+                        disableElevation
+                        variant="contained"
+                        onClick={ trainAndBuild }
+                        endIcon={ <TimelineIcon /> }
+                        disabled={ !hasChanges }
+                    >
+                        Analyze
+                    </Button>
+                </Grid>
+            </Grid>
             <br />
             <Alert
                 variant="outlined"
                 severity="info"
             >
-                In case of Failed attempts, please update the data corresponding to the highest score achieved.
+                In case of failed attempts, please update the data corresponding to the highest score achieved.
             </Alert>
             <br />
             <Grid

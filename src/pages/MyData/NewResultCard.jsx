@@ -20,7 +20,7 @@ import TableRow from '@mui/material/TableRow'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
-import { formatStringCapital, Semesters, withOrdSuffix } from '../../util/helper'
+import { formatString, toCapital, Semesters, withOrdSuffix } from '../../util/helper'
 import { Typography } from '@mui/material'
 import isEqual from 'lodash/isEqual'
 import { useDispatch } from 'react-redux'
@@ -40,6 +40,7 @@ const NewResultPaper = styled('div')({
     cursor: 'pointer',
     '&:hover': {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        boxShadow: '0px 24px 48px -10px rgba(255, 255, 255, 0.2)',
     },
 })
 
@@ -69,9 +70,13 @@ const NewResultCard = () => {
         setOpenMainDialog(true)
     }, [ setOpenMainDialog, setOpenNewDialog ])
     const addSubject = useCallback(() => {
-        let newSub = { ...newSubject }
-        newSub.subjectCode = formatStringCapital(newSub.subjectCode)
-        newSub.subjectName = formatStringCapital(newSub.subjectName)
+        let newSub = {
+            subjectCode: formatString(newSubject.subjectCode),
+            subjectName: toCapital(formatString(newSubject.subjectName)),
+            credits: Number(newSubject.credits),
+            scoredMarks: Number(newSubject.scoredMarks),
+            maxMarks: Number(newSubject.maxMarks),
+        }
 
         if (!newSub.subjectCode) {
             enqueueSnackbar('Subject Code Required', { variant: 'error', preventDuplicate: true })
@@ -81,7 +86,7 @@ const NewResultCard = () => {
             enqueueSnackbar('Subject Name Required', { variant: 'error', preventDuplicate: true })
             return
         }
-        if (!newSub.credits) {
+        if (!newSub.credits || isNaN(newSub.credits)) {
             enqueueSnackbar('Credits Required', { variant: 'error', preventDuplicate: true })
             return
         }

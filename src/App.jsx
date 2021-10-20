@@ -1,21 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Paper from '@mui/material/Paper'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import MyData from './pages/MyData'
 import Report from './pages/Report'
 import Calculation from './pages/Calculation'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Nav from './components/Nav'
 import withStyles from '@mui/styles/withStyles'
 import { vh } from './util/responsive'
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
+import { useEffect } from 'react'
+import { INIT_MY_MODEL } from './store/MyModelSlice'
+import { SET_COMMITTED_CHANGES } from './store/AppDataSlice'
 
-const MyPaper = withStyles({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        height: vh(100),
-    },
-})(Paper)
+const MyPaper = withStyles({ root: { height: vh(100), }, })(Paper)
 
 const AppWithNav = () => <>
     <Nav />
@@ -37,7 +38,16 @@ const AppWithNav = () => <>
 </>
 
 const App = () => {
-    const isLoggedIn = useSelector(store => store.me.loggedIn)
+    const dispatch = useDispatch()
+    const { loggedIn, results } = useSelector(store => store.me)
+    const { backdrop, backdropText, hasChanges } = useSelector(store => store.appData)
+
+    useEffect(() => {
+        if (!hasChanges) {
+            dispatch(INIT_MY_MODEL())
+            dispatch(SET_COMMITTED_CHANGES(true))
+        }
+    }, [ results ])
 
     return <Router>
         <MyPaper
@@ -48,19 +58,36 @@ const App = () => {
                 <Route
                     exact
                     path="/"
-                    render={ () => isLoggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
+                    render={ () => loggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                 />
                 <Route
                     exact
                     path="/:page"
-                    render={ () => isLoggedIn ? <AppWithNav /> : <Redirect to="/" /> }
+                    render={ () => loggedIn ? <AppWithNav /> : <Redirect to="/" /> }
                 />
                 <Route
                     path="*"
-                    render={ () => isLoggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
+                    render={ () => loggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                 />
             </Switch>
-
+            <Backdrop
+                sx={ { color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 } }
+                open={ backdrop }
+            >
+                <CircularProgress
+                    color="inherit"
+                />
+                {
+                    backdropText && <>
+                        <br />
+                        <Typography
+                            variant="button"
+                        >
+                            { backdropText }
+                        </Typography>
+                    </>
+                }
+            </Backdrop>
         </MyPaper>
     </Router>
 }
