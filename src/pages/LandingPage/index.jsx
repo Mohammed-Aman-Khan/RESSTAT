@@ -110,7 +110,7 @@ const LandingPage = () => {
                             size={ small ? "medium" : "large" }
                             variant="outlined"
                             endIcon={ <UploadFileIcon /> }
-                            onClick={ () => openFilePicker() }
+                            onClick={ openFilePicker }
                         >
                             Upload Data File
                         </Button>
