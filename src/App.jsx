@@ -5,16 +5,13 @@ import LandingPage from './pages/LandingPage'
 import MyData from './pages/MyData'
 import Report from './pages/Report'
 import Calculation from './pages/Calculation'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Nav from './components/Nav'
 import withStyles from '@mui/styles/withStyles'
 import { vh } from './util/responsive'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
-import { INIT_MY_MODEL } from './store/MyModelSlice'
-import { SET_COMMITTED_CHANGES } from './store/AppDataSlice'
 
 const MyPaper = withStyles({ root: { height: vh(100), }, })(Paper)
 
@@ -38,16 +35,8 @@ const AppWithNav = () => <>
 </>
 
 const App = () => {
-    const dispatch = useDispatch()
-    const { loggedIn, results } = useSelector(store => store.me)
-    const { backdrop, backdropText, hasChanges } = useSelector(store => store.appData)
-
-    useEffect(() => {
-        if (!hasChanges) {
-            dispatch(INIT_MY_MODEL())
-            dispatch(SET_COMMITTED_CHANGES(true))
-        }
-    }, [ results ])
+    const { loggedIn } = useSelector(store => store.me)
+    const { backdrop, backdropText } = useSelector(store => store.appData)
 
     return <Router>
         <MyPaper

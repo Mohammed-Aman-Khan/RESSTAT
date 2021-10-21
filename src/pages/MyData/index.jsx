@@ -24,7 +24,7 @@ const Card = withStyles(theme => ({
 const MyData = () => {
     const hasChanges = useSelector(state => state.appData.hasChanges)
     const results = useSelector(state => state.me.results) ?? []
-    const { trainAndBuild } = useMyModel()
+    const { build } = useMyModel()
 
     return <Card
         square
@@ -49,7 +49,7 @@ const MyData = () => {
                     size="large"
                     disableElevation
                     variant="contained"
-                    onClick={ trainAndBuild }
+                    onClick={ build }
                     endIcon={ <TimelineIcon /> }
                     disabled={ !hasChanges }
                 >

@@ -13,7 +13,7 @@ const BackdropSlice = createSlice({
             state.backdropText = action.payload ?? null
             return state
         },
-        SET_COMMITTED_CHANGES: (state, action) => {
+        SET_HAS_CHANGES: (state, action) => {
             state.hasChanges = action.payload
             return state
         }
@@ -23,7 +23,7 @@ const BackdropSlice = createSlice({
 export const {
     SET_LOADING,
     SET_BACKDROP_TEXT,
-    SET_COMMITTED_CHANGES,
+    SET_HAS_CHANGES,
 } = BackdropSlice.actions
 
 export default BackdropSlice

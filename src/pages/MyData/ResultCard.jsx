@@ -13,8 +13,10 @@ import { calculateSGPA, percentage, totalMarksScored, withOrdSuffix } from '../.
 import EditIcon from '@mui/icons-material/Edit'
 import { DataGrid } from '@mui/x-data-grid'
 import makeStyles from '@mui/styles/makeStyles'
+import Pagination from '@mui/material/Pagination'
 import CustomToolbar from '../../components/DataGrid/CustomToolbar'
 import CustomNoRowsOverlay from '../../components/DataGrid/CustomNoRowsOverlay'
+import CustomPagination from '../../components/DataGrid/CustomPagination'
 
 const ResultPaper = styled('div')({
     maxHeight: '100%',
@@ -48,6 +50,8 @@ const columns = [
         flex: 0.5,
         cellClassName: 'whiteText',
         headerClassName: 'whiteText',
+        sortable: false,
+        filterable: false,
     },
     {
         minWidth: 200,
@@ -71,6 +75,8 @@ const columns = [
         flex: 0.5,
         cellClassName: 'whiteText',
         headerClassName: 'whiteText',
+        sortable: false,
+        filterable: false,
     },
     {
         minWidth: 200,
@@ -79,10 +85,11 @@ const columns = [
         field: 'scoredMarks',
         headerName: 'Marks',
         sortable: false,
+        filterable: false,
         flex: 0.5,
         cellClassName: 'whiteText',
         headerClassName: 'whiteText',
-        valueGetter: params => `${ params.row.scoredMarks }/${ params.row.maxMarks }`
+        valueGetter: params => `${ params.row.scoredMarks } / ${ params.row.maxMarks }`
     },
 ]
 
@@ -135,26 +142,27 @@ const ResultCard = ({ semester, semResult }) => {
                 SGPA : <strong>{ calculateSGPA(semResult) } / 10</strong>
             </Typography>
             <br /><br />
-                <DataGrid
-                    className={ clsx.datagrid }
-                    autoPageSize
-                    pagination
-                    rows={ semResult }
-                    columns={ columns }
-                    disableSelectionOnClick
-                    disableColumnMenu
-                    isCellEditable={ params => false }
-                    isRowEditable={ params => false }
-                    components={ {
-                        Toolbar: CustomToolbar,
-                        NoRowsOverlay: CustomNoRowsOverlay,
-                    } }
-                    // onPageChange={ val => page.set(val) }
-                    // onPageSizeChange={ val => pageSize.set(val) }
-                    getRowId={ row => row.subjectCode }
-                    density="comfortable"
-                    scrollbarSize={ 10 }
-                />
+            <DataGrid
+                className={ clsx.datagrid }
+                pagination
+                autoPageSize
+                rows={ semResult }
+                columns={ columns }
+                disableSelectionOnClick
+                disableColumnMenu
+                isCellEditable={ params => false }
+                isRowEditable={ params => false }
+                components={ {
+                    Toolbar: CustomToolbar,
+                    Pagination: CustomPagination,
+                    NoRowsOverlay: CustomNoRowsOverlay,
+                } }
+                // onPageChange={ val => page.set(val) }
+                // onPageSizeChange={ val => pageSize.set(val) }
+                getRowId={ row => row.subjectCode }
+                density="comfortable"
+                scrollbarSize={ 10 }
+            />
         </ResultPaper>
         <Dialog
             fullWidth
