@@ -71,12 +71,12 @@ const useRegression = () => {
 
     const test = useCallback((inputFeatureDataSetSize, inputFeature, intercept, coEfficient) => {
         let testingDataSet = Array.from({ length: inputFeatureDataSetSize }, () => random(100))
-        let errors = map(
+        let errorsSquared = map(
             testingDataSet,
-            marks => Math.abs(marks - calculate(intercept, coEfficient, inputFeature))
+            marks => Math.pow(Math.abs(marks - calculate(intercept, coEfficient, inputFeature)), 2)
         )
-        let mse = errors.reduce((prev, next) => prev + next, 0) / errors.length
-        return roundToTwo(100 - mse)
+        let mse = errorsSquared.reduce((prev, next) => prev + next, 0) / errorsSquared.length
+        return roundToTwo(100 - Math.sqrt(mse))
     }, [ calculate ])
 
     const build = useCallback(() => {
