@@ -2,6 +2,10 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import withStyles from '@mui/styles/withStyles'
+import CGPA from './CGPA'
+import PredictionReport from './PredictionReport'
+import SemesterReport from './SemesterReport'
+import SubjectReport from './SubjectReport'
 
 const Card = withStyles(theme => ({
     root: {
@@ -19,7 +23,7 @@ const Report = () => {
     >
         <Grid
             container
-            spacing={ 3 }
+            spacing={ 5 }
         >
             <Grid
                 container item
@@ -27,11 +31,29 @@ const Report = () => {
             >
                 <Typography variant="h5">Report</Typography>
             </Grid>
-            <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } xl={ 12 } />
+            <Grid
+                item
+                xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } xl={ 12 }
+            >
+                <CGPA />
+            </Grid>
             <Grid
                 container item
-                xs={ 12 } sm={ 6 } md={ 6 } lg={ 6 } xl={ 4 }
+                xs={ 12 } sm={ 12 } md={ 6 } lg={ 4 } xl={ 4 }
             >
+                <SemesterReport />
+            </Grid>
+            <Grid
+                container item
+                xs={ 12 } sm={ 12 } md={ 6 } lg={ 4 } xl={ 4 }
+            >
+                <SubjectReport />
+            </Grid>
+            <Grid
+                container item
+                xs={ 12 } sm={ 12 } md={ 6 } lg={ 4 } xl={ 4 }
+            >
+                <PredictionReport />
             </Grid>
         </Grid>
     </Card>

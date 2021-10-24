@@ -9,9 +9,6 @@ import { useSelector } from 'react-redux'
 import Nav from './components/Nav'
 import withStyles from '@mui/styles/withStyles'
 import { vh } from './util/responsive'
-import Backdrop from '@mui/material/Backdrop'
-import CircularProgress from '@mui/material/CircularProgress'
-import Typography from '@mui/material/Typography'
 
 const MyPaper = withStyles({ root: { height: vh(100), }, })(Paper)
 
@@ -35,7 +32,7 @@ const AppWithNav = () => <>
 </>
 
 const App = () => {
-    const { backdrop, backdropText, loggedIn } = useSelector(store => store.appData)
+    const loggedIn = useSelector(store => store.appData.loggedIn)
 
     return <Router>
         <MyPaper
@@ -58,24 +55,6 @@ const App = () => {
                     render={ () => loggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
                 />
             </Switch>
-            <Backdrop
-                sx={ { color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 } }
-                open={ backdrop }
-            >
-                <CircularProgress
-                    color="inherit"
-                />
-                {
-                    backdropText && <>
-                        <br />
-                        <Typography
-                            variant="button"
-                        >
-                            { backdropText }
-                        </Typography>
-                    </>
-                }
-            </Backdrop>
         </MyPaper>
     </Router>
 }

@@ -2,13 +2,13 @@ import { useCallback } from 'react'
 import { useHistory } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { INIT_MY_MODEL } from '../store/MyModelSlice'
-import { SET_LOADING, SET_BACKDROP_TEXT, SET_HAS_CHANGES } from '../store/AppDataSlice'
+import { SET_HAS_CHANGES } from '../store/AppDataSlice'
 import map from 'lodash/map'
 import find from 'lodash/find'
 import uniq from 'lodash/uniq'
 import sortBy from 'lodash/sortBy'
 import filter from 'lodash/filter'
-import random from 'lodash/random'
+import shuffle from 'lodash/shuffle'
 import flattenDeep from 'lodash/flattenDeep'
 import { roundToTwo } from '../util/helper'
 
@@ -69,20 +69,17 @@ const useRegression = () => {
         }
     }, [ calculate ])
 
-    const test = useCallback((inputFeatureDataSetSize, inputFeature, intercept, coEfficient) => {
-        let testingDataSet = Array.from({ length: inputFeatureDataSetSize }, () => random(100))
-        let errorsSquared = map(
-            testingDataSet,
-            marks => Math.pow(Math.abs(marks - calculate(intercept, coEfficient, inputFeature)), 2)
+    const test = useCallback((testingDataSet, inputFeature, intercept, coEfficient) => {
+        let dataSet = shuffle([ ...testingDataSet ])
+        let errors = map(
+            dataSet,
+            marks => Math.abs(marks - calculate(intercept, coEfficient, inputFeature))
         )
-        let mse = errorsSquared.reduce((prev, next) => prev + next, 0) / errorsSquared.length
-        return roundToTwo(100 - Math.sqrt(mse))
+        let mae = errors.reduce((prev, next) => prev + next, 0) / errors.length
+        return roundToTwo(100 - mae)
     }, [ calculate ])
 
     const build = useCallback(() => {
-        dispatch(SET_LOADING(true))
-
-        dispatch(SET_BACKDROP_TEXT('Fetching Results'))
         const flatResults = flattenDeep(
             map(
                 results,
@@ -97,7 +94,6 @@ const useRegression = () => {
             )
         )
 
-        dispatch(SET_BACKDROP_TEXT('Analyzing Scored Marks'))
         const allCredits = sortBy(
             uniq(
                 map(
@@ -107,7 +103,6 @@ const useRegression = () => {
             )
         )
 
-        dispatch(SET_BACKDROP_TEXT('Building and Testing Model'))
         const model = []
         let dataSet, credits, scoredMarks, dataPoint
         for (let i = 0; i < allCredits.length; i++) {
@@ -118,16 +113,15 @@ const useRegression = () => {
             dataPoint = {
                 ...dataPoint,
                 credits: allCredits[ i ],
-                accuracy: test(dataSet.length, allCredits[ i ], dataPoint.intercept, dataPoint.coEfficient),
+                accuracy: test(scoredMarks, allCredits[ i ], dataPoint.intercept, dataPoint.coEfficient),
             }
             model.push(dataPoint)
         }
         dispatch(INIT_MY_MODEL(model))
 
-        // history.push('/report')
-        dispatch(SET_LOADING(false))
+        history.push('/report')
         dispatch(SET_HAS_CHANGES(false))
-    }, [ dispatch, results, train, test ])
+    }, [ dispatch, results, train, test, history ])
 
     const predict = useCallback(credits => {
         const { intercept, coEfficient } = find(lrModel, { credits })

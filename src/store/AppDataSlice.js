@@ -10,14 +10,6 @@ const BackdropSlice = createSlice({
             state.login = true
             return
         },
-        SET_LOADING: (state, action) => {
-            state.backdrop = action.payload
-            return state
-        },
-        SET_BACKDROP_TEXT: (state, action) => {
-            state.backdropText = action.payload ?? null
-            return state
-        },
         SET_HAS_CHANGES: (state, action) => {
             state.hasChanges = action.payload
             return state
@@ -29,8 +21,6 @@ const BackdropSlice = createSlice({
 export const {
     INIT_APP_DATA,
     LOGIN,
-    SET_LOADING,
-    SET_BACKDROP_TEXT,
     SET_HAS_CHANGES,
     CLEAR_APP_DATA,
 } = BackdropSlice.actions

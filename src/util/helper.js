@@ -36,27 +36,44 @@ export const percentage = (subjectsData = []) => {
     return roundToTwo((scoredMarks / maxMarks) * 100)
 }
 
+const getGradePoints = (scoredMarks, maxMarks) => {
+    let marks = (scoredMarks / maxMarks) * 100
+    if (inRange(marks, 90, 100 + 1)) return 10
+    else if (inRange(marks, 80, 90)) return 9
+    else if (inRange(marks, 70, 80)) return 8
+    else if (inRange(marks, 60, 70)) return 7
+    else if (inRange(marks, 45, 60)) return 6
+    else if (inRange(marks, 40, 45)) return 4
+    else return 0
+}
+
 export const calculateSGPA = (subjectsData = []) => {
     if (isEqual(subjectsData, [])) return ''
 
     let totalCredits = 0,
         totalCreditPoints = 0
 
-    let getGradePoints = (scoredMarks, maxMarks) => {
-        let marks = (scoredMarks / maxMarks) * 100
-        if (inRange(marks, 90, 100 + 1)) return 10
-        else if (inRange(marks, 80, 90)) return 9
-        else if (inRange(marks, 70, 80)) return 8
-        else if (inRange(marks, 60, 70)) return 7
-        else if (inRange(marks, 45, 60)) return 6
-        else if (inRange(marks, 40, 45)) return 4
-        else return 0
-    }
-
     for (let i = 0; i < subjectsData.length; i++) {
         let { credits, scoredMarks, maxMarks } = subjectsData[ i ]
         totalCredits += credits
         totalCreditPoints += (credits * getGradePoints(scoredMarks, maxMarks))
+    }
+
+    return roundToTwo(totalCreditPoints / totalCredits)
+}
+
+export const calculateCGPA = (results = []) => {
+    if (isEqual(results, [])) return ''
+
+    let totalCredits = 0,
+        totalCreditPoints = 0
+
+    for (let i = 0; i < results.length; i++) {
+        for (let j = 0; j < results[ i ].semResult.length; j++) {
+            let { credits, scoredMarks, maxMarks } = results[ i ].semResult[ j ]
+            totalCredits += credits
+            totalCreditPoints += (credits * getGradePoints(scoredMarks, maxMarks))
+        }
     }
 
     return roundToTwo(totalCreditPoints / totalCredits)

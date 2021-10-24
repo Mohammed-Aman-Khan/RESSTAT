@@ -10,6 +10,7 @@
         "@mui/styles": "^5.0.1",
         "@mui/x-data-grid": "^4.0.1",
         "@reduxjs/toolkit": "^1.6.2",
+        "better-react-mathjax": "^1.0.3",
         "classnames": "^2.3.1",
         "file-saver": "^2.0.5",
         "lodash": "^4.17.21",
