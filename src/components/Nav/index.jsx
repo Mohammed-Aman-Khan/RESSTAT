@@ -17,7 +17,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import DownloadIcon from '@mui/icons-material/Download'
 import ReplayIcon from '@mui/icons-material/Replay'
-import CalculateIcon from '@mui/icons-material/Calculate'
+// import CalculateIcon from '@mui/icons-material/Calculate'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import { downloadConfigurationAsJSON } from '../../util/download'
@@ -77,11 +77,11 @@ const NavBar = ({ small = false }) => {
                                 path: '/report',
                                 icon: <BarChartIcon />,
                             },
-                            {
-                                text: 'Calculation',
-                                path: '/calculation',
-                                icon: <CalculateIcon />,
-                            },
+                            // {
+                            //     text: 'Calculation',
+                            //     path: '/calculation',
+                            //     icon: <CalculateIcon />,
+                            // },
                         ]
                             .map(({ text, path, icon }) =>
                                 <ListItem

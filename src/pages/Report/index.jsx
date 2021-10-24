@@ -2,6 +2,10 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import withStyles from '@mui/styles/withStyles'
+import { useSnackbar } from 'notistack'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import CGPA from './CGPA'
 import PredictionReport from './PredictionReport'
 import SemesterReport from './SemesterReport'
@@ -17,6 +21,17 @@ const Card = withStyles(theme => ({
 }), { name: 'MyDataCard' })(Paper)
 
 const Report = () => {
+    const hasChanges = useSelector(state => state.appData.hasChanges)
+    const history = useHistory()
+    const { enqueueSnackbar } = useSnackbar()
+
+    useEffect(() => {
+        if (hasChanges) {
+            enqueueSnackbar('Please Save the data to generate the Report', { variant: 'warning', preventDuplicate: false, autoHideDuration: 5000 })
+            history.replace('/myData')
+        }
+    }, [ history, hasChanges, enqueueSnackbar ])
+
     return <Card
         square
         elevation={ 0 }

@@ -19,6 +19,7 @@ import { INIT_APP_DATA, LOGIN } from '../../store/AppDataSlice'
 import { vh, vw } from '../../util/responsive'
 import styled from '@mui/material/styles/styled'
 import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 
 const MyGrid = withStyles({
     root: {
@@ -95,7 +96,7 @@ const LandingPage = () => {
                         variant={ small ? 'h6' : 'h5' }
                         sx={ { textAlign: 'center' } }
                     >
-                        Dead Simple Result Analysis<br />For Engineering Students
+                        Dead Simple Result Analysis<br />For VTU Engineering Students
                     </Typography>
                 </Grid>
                 <Grid
@@ -134,7 +135,7 @@ const LandingPage = () => {
                 </Grid>
             </MyInnerGrid>
         </MyGrid>
-        <InfoDiv>
+        {/* <InfoDiv>
             <IconButton
                 size={ small ? 'small' : 'large' }
                 onClick={ e => setAnchorEl(e.currentTarget) }
@@ -158,10 +159,12 @@ const LandingPage = () => {
                     variant="outlined"
                     severity="info"
                 >
-                    This website does not store its Users' Data.
+                    <AlertTitle>Note</AlertTitle>
+                    This website does not store its users' data in any form.<br />
+                    Everything is restricted within the session.<br />
                 </Alert>
             </Popover>
-        </InfoDiv>
+        </InfoDiv> */}
     </>
 }
 

@@ -4,35 +4,41 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import LandingPage from './pages/LandingPage'
 import MyData from './pages/MyData'
 import Report from './pages/Report'
-import Calculation from './pages/Calculation'
+// import Calculation from './pages/Calculation'
 import { useSelector } from 'react-redux'
 import Nav from './components/Nav'
 import withStyles from '@mui/styles/withStyles'
 import { vh } from './util/responsive'
+import { useSnackbar } from 'notistack'
 
 const MyPaper = withStyles({ root: { height: vh(100), }, })(Paper)
 
-const AppWithNav = () => <>
+const AppWithNav = props => <>
     <Nav />
     <Route
         exact
         path="/myData"
-        render={ () => <MyData /> }
+        render={ () => props.loggedIn ? <MyData /> : <Redirect to="/" /> }
     />
     <Route
         exact
         path="/report"
-        render={ () => <Report /> }
+        render={ () => props.loggedIn ? <Report /> : <Redirect to="/" /> }
     />
-    <Route
+    {/* <Route
         exact
         path="/calculation"
         render={ () => <Calculation /> }
+    /> */}
+    <Route
+        path="*"
+        render={ () => props.loggedIn ? <Redirect to="/myData" /> : <Redirect to="/" /> }
     />
 </>
 
 const App = () => {
-    const loggedIn = useSelector(store => store.appData.loggedIn)
+    const { loggedIn, hasChanges } = useSelector(store => store.appData)
+    const { enqueueSnackbar } = useSnackbar()
 
     return <Router>
         <MyPaper
@@ -48,11 +54,7 @@ const App = () => {
                 <Route
                     exact
                     path="/:page"
-                    render={ () => loggedIn ? <AppWithNav /> : <Redirect to="/" /> }
-                />
-                <Route
-                    path="*"
-                    render={ () => loggedIn ? <Redirect to="/myData" /> : <LandingPage /> }
+                    render={ () => <AppWithNav loggedIn={ loggedIn } hasChanges={ hasChanges } snack={ enqueueSnackbar } /> }
                 />
             </Switch>
         </MyPaper>

@@ -53,7 +53,7 @@ const MyData = () => {
                     endIcon={ <TimelineIcon /> }
                     disabled={ !hasChanges }
                 >
-                    Analyze
+                    Save & Analyze
                 </Button>
             </Grid>
         </Grid>
