@@ -13,6 +13,9 @@ export default yup
         hasChanges: yup
             .boolean()
             .default(false),
+        loggedIn: yup
+            .boolean()
+            .default(false),
     })
-    .required()
+    .defined()
     .strict(true)

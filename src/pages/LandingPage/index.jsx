@@ -13,8 +13,9 @@ import { useFilePicker } from 'use-file-picker'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
 import dataFile from '../../schemas/dataFile'
-import { INIT_ME } from '../../store/MyDataSlice'
+import { INIT_RESULTS } from '../../store/MyDataSlice'
 import { INIT_MY_MODEL } from '../../store/MyModelSlice'
+import { INIT_APP_DATA, LOGIN } from '../../store/AppDataSlice'
 import { vh, vw } from '../../util/responsive'
 import styled from '@mui/material/styles/styled'
 import Alert from '@mui/material/Alert'
@@ -51,17 +52,17 @@ const LandingPage = () => {
             .validate(JSON.parse(jsonfileContent))
             .then(value => {
                 dispatch(INIT_MY_MODEL(value.lrModel))
-                dispatch(INIT_ME(value.results))
+                dispatch(INIT_RESULTS(value.results))
+                dispatch(INIT_APP_DATA(value.appData))
             })
             .catch(err => enqueueSnackbar('Invalid Data File', { variant: 'error', preventDuplicate: true, }))
     }, [ dispatch, enqueueSnackbar ])
     const startNew = useCallback(() => {
-        dispatch(INIT_ME(dataFile.getDefaultFromShape().results))
+        dispatch(LOGIN())
+        dispatch(INIT_RESULTS(dataFile.getDefaultFromShape().results))
     }, [ dispatch ])
 
-    useEffect(() => {
-        !loading && filesContent.length && uploadDataFile(filesContent[ 0 ].content)
-    }, [ loading, filesContent, uploadDataFile ])
+    useEffect(() => !loading && filesContent.length && uploadDataFile(filesContent[ 0 ].content), [ loading, filesContent, uploadDataFile ])
 
     return <>
         <MyGrid

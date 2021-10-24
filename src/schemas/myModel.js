@@ -8,13 +8,16 @@ export default yup
             .shape({
                 intercept: yup
                     .number()
-                    .required(),
+                    .defined(),
                 coEfficient: yup
                     .number()
-                    .required(),
+                    .defined(),
+                accuracy: yup
+                    .number()
+                    .defined(),
             })
-            .required()
+            .defined()
     )
-    .required()
+    .defined()
     .default([])
     .strict(true)

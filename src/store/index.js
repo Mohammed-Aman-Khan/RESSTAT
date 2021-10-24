@@ -7,15 +7,15 @@ const Store = configureStore({
     reducer: {
         appData: AppDataSlice.reducer,
         lrModel: MyModelSlice.reducer,
-        me: MyDataSlice.reducer,
+        results: MyDataSlice.reducer,
     },
 })
 
 Store.subscribe(() => {
-    const { appData, lrModel, me } = Store.getState()
+    const { appData, lrModel, results } = Store.getState()
     localStorage.appData = JSON.stringify(appData)
     localStorage.lrModel = JSON.stringify(lrModel)
-    localStorage.me = JSON.stringify(me)
+    localStorage.results = JSON.stringify(results)
 })
 
 export default Store

@@ -23,7 +23,8 @@ import Tooltip from '@mui/material/Tooltip'
 import { downloadConfigurationAsJSON } from '../../util/download'
 import { useDispatch } from 'react-redux'
 import { CLEAR_MY_MODEL } from '../../store/MyModelSlice'
-import { CLEAR_ME } from '../../store/MyDataSlice'
+import { CLEAR_RESULTS } from '../../store/MyDataSlice'
+import { CLEAR_APP_DATA } from '../../store/AppDataSlice'
 
 const NavBar = ({ small = false }) => {
     const history = useHistory()
@@ -109,7 +110,8 @@ const Nav = () => {
 
     const reset = useCallback(() => {
         dispatch(CLEAR_MY_MODEL())
-        dispatch(CLEAR_ME())
+        dispatch(CLEAR_RESULTS())
+        dispatch(CLEAR_APP_DATA())
     }, [ dispatch ])
 
     return <AppBar position="static">
@@ -122,6 +124,7 @@ const Nav = () => {
                 RESSTAT
             </Typography>
             <Tooltip
+                placement="left"
                 title={ <Typography>Download Data</Typography> }
             >
                 <IconButton
@@ -132,6 +135,7 @@ const Nav = () => {
                 </IconButton>
             </Tooltip>
             <Tooltip
+                placement="left"
                 title={ <Typography>Clear Data</Typography> }
             >
                 <IconButton

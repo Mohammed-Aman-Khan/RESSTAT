@@ -8,7 +8,7 @@ export default yup
             .shape({
                 semester: yup
                     .number()
-                    .required(),
+                    .defined(),
                 semResult: yup
                     .array()
                     .of(
@@ -29,10 +29,10 @@ export default yup
                                     .default(100),
                             })
                     )
-                    .required()
+                    .defined()
                     .default([]),
             })
     )
-    .required()
+    .defined()
     .default([])
     .strict(true)

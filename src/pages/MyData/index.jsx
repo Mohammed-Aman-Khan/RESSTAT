@@ -23,7 +23,7 @@ const Card = withStyles(theme => ({
 
 const MyData = () => {
     const hasChanges = useSelector(state => state.appData.hasChanges)
-    const results = useSelector(state => state.me.results) ?? []
+    const results = useSelector(state => state.results) ?? []
     const { build } = useMyModel()
 
     return <Card

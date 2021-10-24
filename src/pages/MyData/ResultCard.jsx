@@ -13,7 +13,6 @@ import { calculateSGPA, percentage, totalMarksScored, withOrdSuffix } from '../.
 import EditIcon from '@mui/icons-material/Edit'
 import { DataGrid } from '@mui/x-data-grid'
 import makeStyles from '@mui/styles/makeStyles'
-import Pagination from '@mui/material/Pagination'
 import CustomToolbar from '../../components/DataGrid/CustomToolbar'
 import CustomNoRowsOverlay from '../../components/DataGrid/CustomNoRowsOverlay'
 import CustomPagination from '../../components/DataGrid/CustomPagination'
@@ -22,8 +21,8 @@ const ResultPaper = styled('div')({
     maxHeight: '100%',
     minHeight: 200,
     minWidth: 200,
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: 10,
+    padding: 15,
     width: '100%',
     aspectRatio: '1/1',
     border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -132,21 +131,21 @@ const ResultCard = ({ semester, semResult }) => {
                 </Grid>
             </Grid>
             <br />
-            <Typography variant="overline">
+            <Typography variant="overline" sx={ { letterSpacing: 1 } }>
                 Total Marks Scored : <strong>{ totalMarksScored(semResult) }</strong>
             </Typography>
-            <Typography variant="overline">
+            <Typography variant="overline" sx={ { letterSpacing: 1 } }>
                 Percentage : <strong>{ percentage(semResult) } %</strong>
             </Typography>
-            <Typography variant="overline">
+            <Typography variant="overline" sx={ { letterSpacing: 1 } }>
                 SGPA : <strong>{ calculateSGPA(semResult) } / 10</strong>
             </Typography>
-            <br /><br />
+            <br />
             <DataGrid
                 className={ clsx.datagrid }
                 pagination
                 autoPageSize
-                rows={ semResult }
+                rows={ semResult ?? [] }
                 columns={ columns }
                 disableSelectionOnClick
                 disableColumnMenu
@@ -157,10 +156,7 @@ const ResultCard = ({ semester, semResult }) => {
                     Pagination: CustomPagination,
                     NoRowsOverlay: CustomNoRowsOverlay,
                 } }
-                // onPageChange={ val => page.set(val) }
-                // onPageSizeChange={ val => pageSize.set(val) }
                 getRowId={ row => row.subjectCode }
-                density="comfortable"
                 scrollbarSize={ 10 }
             />
         </ResultPaper>

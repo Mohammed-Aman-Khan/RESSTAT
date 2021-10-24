@@ -35,7 +35,7 @@ const AppWithNav = () => <>
 </>
 
 const App = () => {
-    const { loggedIn } = useSelector(store => store.me)
+    const { loggedIn } = useSelector(store => store.appData)
     const { backdrop, backdropText } = useSelector(store => store.appData)
 
     return <Router>
