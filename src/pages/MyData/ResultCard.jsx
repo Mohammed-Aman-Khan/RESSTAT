@@ -149,8 +149,8 @@ const ResultCard = ({ semester, semResult }) => {
                 columns={ columns }
                 disableSelectionOnClick
                 disableColumnMenu
-                isCellEditable={ params => false }
-                isRowEditable={ params => false }
+                isCellEditable={ () => false }
+                isRowEditable={ () => false }
                 components={ {
                     Toolbar: CustomToolbar,
                     Pagination: CustomPagination,
