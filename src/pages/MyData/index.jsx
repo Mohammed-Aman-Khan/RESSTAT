@@ -8,7 +8,7 @@ import NewResultCard from './NewResultCard'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import TimelineIcon from '@mui/icons-material/Timeline'
-import useMyModel from '../../hooks/useMyModel'
+import useRegression from '../../hooks/useRegression'
 import sortBy from 'lodash/sortBy'
 import map from 'lodash/map'
 
@@ -24,7 +24,7 @@ const Card = withStyles(theme => ({
 const MyData = () => {
     const hasChanges = useSelector(state => state.appData.hasChanges)
     const results = useSelector(state => state.results) ?? []
-    const { build } = useMyModel()
+    const { build } = useRegression()
 
     return <Card
         square

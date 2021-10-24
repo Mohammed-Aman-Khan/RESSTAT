@@ -12,7 +12,7 @@ import random from 'lodash/random'
 import flattenDeep from 'lodash/flattenDeep'
 import { roundToTwo } from '../util/helper'
 
-const useMyModel = () => {
+const useRegression = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const lrModel = useSelector(state => state.lrModel)
@@ -71,11 +71,11 @@ const useMyModel = () => {
 
     const test = useCallback((inputFeatureDataSetSize, inputFeature, intercept, coEfficient) => {
         let testingDataSet = Array.from({ length: inputFeatureDataSetSize }, () => random(100))
-        let errorsSquared = map(
+        let errors = map(
             testingDataSet,
-            marks => Math.pow(Math.abs(marks - calculate(intercept, coEfficient, inputFeature)), 2)
+            marks => Math.abs(marks - calculate(intercept, coEfficient, inputFeature))
         )
-        let mse = errorsSquared.reduce((prev, next) => prev + next, 0) / errorsSquared.length
+        let mse = errors.reduce((prev, next) => prev + next, 0) / errors.length
         return roundToTwo(100 - mse)
     }, [ calculate ])
 
@@ -114,12 +114,12 @@ const useMyModel = () => {
             dataSet = filter(flatResults, { credits: allCredits[ i ] })
             credits = map(dataSet, ({ credits }) => credits)
             scoredMarks = map(dataSet, ({ scoredMarks }) => scoredMarks)
+            dataPoint = train(credits, scoredMarks)
             dataPoint = {
+                ...dataPoint,
                 credits: allCredits[ i ],
-                ...train(credits, scoredMarks),
-                accuracy: 0,
+                accuracy: test(dataSet.length, allCredits[ i ], dataPoint.intercept, dataPoint.coEfficient),
             }
-            dataPoint.accuracy = test(dataSet.length, dataPoint.credits, dataPoint.intercept, dataPoint.coEfficient)
             model.push(dataPoint)
         }
         dispatch(INIT_MY_MODEL(model))
@@ -140,4 +140,4 @@ const useMyModel = () => {
     }
 }
 
-export default useMyModel
+export default useRegression
