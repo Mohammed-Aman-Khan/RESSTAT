@@ -7,7 +7,7 @@ const BackdropSlice = createSlice({
     reducers: {
         INIT_APP_DATA: (state, action) => action.payload,
         LOGIN: (state, action) => {
-            state.login = true
+            state.loggedIn = true
             return
         },
         SET_HAS_CHANGES: (state, action) => {
