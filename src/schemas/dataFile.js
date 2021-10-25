@@ -3,7 +3,10 @@ import appData from './appData'
 import myModel from './myModel'
 import results from './results'
 
-export default yup
+/**
+ * Schema for RESSTAT JSON Data File - powered by yup
+ */
+const dataFileSchema = yup
     .object()
     .shape({
         appData: appData,
@@ -11,3 +14,5 @@ export default yup
         results: results,
     })
     .strict(true)
+
+export default dataFileSchema

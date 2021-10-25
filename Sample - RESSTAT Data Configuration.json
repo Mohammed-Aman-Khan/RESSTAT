@@ -1,0 +1,396 @@
+{
+    "appData": {
+        "hasChanges": true,
+        "loggedIn": true
+    },
+    "lrModel": [],
+    "results": [
+        {
+            "semester": 1,
+            "semResult": [
+                {
+                    "subjectCode": "18XXX11",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 75,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX12",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 63,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX13",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 58,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX14",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 53,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXXL15",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 93,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXXL16",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 98,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXXL17",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 87,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX18",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 83,
+                    "maxMarks": 100
+                }
+            ]
+        },
+        {
+            "semester": 2,
+            "semResult": [
+                {
+                    "subjectCode": "18XXX21",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 87,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX22",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX23",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 61,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX24",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 60,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX5",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 58,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXXL26",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 76,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX27",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 96,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX28",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 78,
+                    "maxMarks": 100
+                }
+            ]
+        },
+        {
+            "semester": 3,
+            "semResult": [
+                {
+                    "subjectCode": "18MAT31",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 50,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX32",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 78,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX33",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 50,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX34",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 57,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX35",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 50,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX36",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 76,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL36",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 99,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL38",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 95,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX39",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                }
+            ]
+        },
+        {
+            "semester": 4,
+            "semResult": [
+                {
+                    "subjectCode": "18MAT41",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 73,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX42",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 73,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX43",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX44",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 69,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX45",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 78,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX46",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 73,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL47",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 76,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL48",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 80,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXX49",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 92,
+                    "maxMarks": 100
+                }
+            ]
+        },
+        {
+            "semester": 5,
+            "semResult": [
+                {
+                    "subjectCode": "18XX51",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 58,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX52",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 56,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX54",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 55,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX53",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 56,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX55",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 64,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX56",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 50,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL57",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 98,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL58",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 86,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18CIV59",
+                    "subjectName": "Some Subject with 1 Credits",
+                    "credits": 1,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                }
+            ]
+        },
+        {
+            "semester": 6,
+            "semResult": [
+                {
+                    "subjectCode": "18XX61",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX62",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 68,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX652",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 61,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX63",
+                    "subjectName": "Some Subject with 4 Credits",
+                    "credits": 4,
+                    "scoredMarks": 72,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX643",
+                    "subjectName": "Some Subject with 3 Credits",
+                    "credits": 3,
+                    "scoredMarks": 69,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL66",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 71,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XXL67",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 72,
+                    "maxMarks": 100
+                },
+                {
+                    "subjectCode": "18XX68",
+                    "subjectName": "Some Subject with 2 Credits",
+                    "credits": 2,
+                    "scoredMarks": 72,
+                    "maxMarks": 100
+                }
+            ]
+        }
+    ]
+}

@@ -12,6 +12,10 @@ import shuffle from 'lodash/shuffle'
 import flattenDeep from 'lodash/flattenDeep'
 import { roundToTwo } from '../util/helper'
 
+/**
+ * This hook enables the usage of a customised Linear Regression algorithm for the prediction of student grades based on the subject credits, in a declarative manner
+ * @returns 2 functions build() and predict() for building the model and making predictions using the built model respectively
+ */
 const useRegression = () => {
     const dispatch = useDispatch()
     const history = useHistory()

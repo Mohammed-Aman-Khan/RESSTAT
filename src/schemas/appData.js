@@ -1,6 +1,9 @@
 import * as yup from 'yup'
 
-export default yup
+/**
+ * Schema for RESSTAT Application Data - powered by yup
+ */
+const appDataSchema = yup
     .object()
     .shape({
         hasChanges: yup
@@ -12,3 +15,5 @@ export default yup
     })
     .defined()
     .strict(true)
+
+export default appDataSchema

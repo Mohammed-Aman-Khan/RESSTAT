@@ -9,21 +9,20 @@ import { useSelector } from 'react-redux'
 import Nav from './components/Nav'
 import withStyles from '@mui/styles/withStyles'
 import { vh } from './util/responsive'
-import { useSnackbar } from 'notistack'
 
 const MyPaper = withStyles({ root: { height: vh(100), }, })(Paper)
 
-const AppWithNav = props => <>
+const AppWithNav = ({ loggedIn = false }) => <>
     <Nav />
     <Route
         exact
         path="/myData"
-        render={ () => props.loggedIn ? <MyData /> : <Redirect to="/" /> }
+        render={ () => loggedIn ? <MyData /> : <Redirect to="/" /> }
     />
     <Route
         exact
         path="/report"
-        render={ () => props.loggedIn ? <Report /> : <Redirect to="/" /> }
+        render={ () => loggedIn ? <Report /> : <Redirect to="/" /> }
     />
     {/* <Route
         exact
@@ -32,13 +31,12 @@ const AppWithNav = props => <>
     /> */}
     <Route
         path="*"
-        render={ () => props.loggedIn ? <Redirect to="/myData" /> : <Redirect to="/" /> }
+        render={ () => loggedIn ? <Redirect to="/myData" /> : <Redirect to="/" /> }
     />
 </>
 
 const App = () => {
-    const { loggedIn, hasChanges } = useSelector(store => store.appData)
-    const { enqueueSnackbar } = useSnackbar()
+    const loggedIn = useSelector(store => store.appData.loggedIn)
 
     return <Router>
         <MyPaper
@@ -54,7 +52,7 @@ const App = () => {
                 <Route
                     exact
                     path="/:page"
-                    render={ () => <AppWithNav loggedIn={ loggedIn } hasChanges={ hasChanges } snack={ enqueueSnackbar } /> }
+                    render={ () => <AppWithNav loggedIn={ loggedIn } /> }
                 />
             </Switch>
         </MyPaper>

@@ -1,6 +1,9 @@
 import * as yup from 'yup'
 
-export default yup
+/**
+ * Schema for RESSTAT Result Data - powered by yup
+ */
+const resultSchema = yup
     .array()
     .of(
         yup
@@ -36,3 +39,5 @@ export default yup
     .defined()
     .default([])
     .strict(true)
+
+export default resultSchema

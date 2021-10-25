@@ -1,6 +1,9 @@
 import * as yup from 'yup'
 
-export default yup
+/**
+ * Schema for RESSTAT Linear Regression Model - powered by yup
+ */
+const myModelSchema = yup
     .array()
     .of(
         yup
@@ -21,3 +24,5 @@ export default yup
     .defined()
     .default([])
     .strict(true)
+
+export default myModelSchema
