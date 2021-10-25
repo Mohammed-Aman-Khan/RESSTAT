@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
-import IconButton from '@mui/material/IconButton'
+import { useCallback, useEffect, /* useState */ } from 'react'
+// import IconButton from '@mui/material/IconButton'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
-import Popover from '@mui/material/Popover'
+// import Popover from '@mui/material/Popover'
 import withStyles from '@mui/styles/withStyles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import InfoIcon from '@mui/icons-material/Info'
+// import InfoIcon from '@mui/icons-material/Info'
 import { useFilePicker } from 'use-file-picker'
 import { useSnackbar } from 'notistack'
 import { useDispatch } from 'react-redux'
@@ -17,9 +17,10 @@ import { INIT_RESULTS } from '../../store/MyDataSlice'
 import { INIT_MY_MODEL } from '../../store/MyModelSlice'
 import { INIT_APP_DATA, LOGIN } from '../../store/AppDataSlice'
 import { vh, vw } from '../../util/responsive'
-import styled from '@mui/material/styles/styled'
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
+// import styled from '@mui/material/styles/styled'
+// import Alert from '@mui/material/Alert'
+// import AlertTitle from '@mui/material/AlertTitle'
+import GithubCorner from 'react-github-corner'
 
 const MyGrid = withStyles({
     root: {
@@ -35,18 +36,18 @@ const MyInnerGrid = withStyles({
         maxWidth: 600,
     }
 }, { name: 'MyInnerGrid' })(Grid)
-const InfoDiv = styled('div')({
-    position: 'fixed',
-    bottom: 10,
-    right: 10,
-})
+// const InfoDiv = styled('div')({
+//     position: 'fixed',
+//     bottom: 10,
+//     right: 10,
+// })
 
 const LandingPage = () => {
     const dispatch = useDispatch()
     const small = !useMediaQuery(theme => theme.breakpoints.up('sm'))
     const [ openFilePicker, { filesContent, loading } ] = useFilePicker({ accept: '.json', })
     const { enqueueSnackbar } = useSnackbar()
-    const [ anchorEl, setAnchorEl ] = useState(null)
+    // const [ anchorEl, setAnchorEl ] = useState(null)
 
     const uploadDataFile = useCallback(jsonfileContent => {
         dataFile
@@ -165,6 +166,12 @@ const LandingPage = () => {
                 </Alert>
             </Popover>
         </InfoDiv> */}
+        <GithubCorner
+            size={ small ? 80 : 125 }
+            octoColor="#121212"
+            bannerColor="#FFFFFF"
+            href="https://github.com/Mohammed-Aman-Khan/RESSTAT"
+        />
     </>
 }
 
